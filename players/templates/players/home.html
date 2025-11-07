@@ -1,0 +1,84 @@
+{% extends 'players/base.html' %}
+
+{% block title %}Home - Netball Registration{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container text-center">
+        <h1 class="display-3 fw-bold mb-4">
+            <i class="bi bi-trophy-fill text-warning"></i> Netball Registration System
+        </h1>
+        <p class="lead mb-5">Join tournaments, build teams, and compete at the highest level</p>
+        <a href="{% url 'register_player' %}" class="btn btn-primary btn-lg me-3">
+            <i class="bi bi-person-plus-fill"></i> Register Now
+        </a>
+        <a href="{% url 'search_player' %}" class="btn btn-outline-light btn-lg">
+            <i class="bi bi-search"></i> Search Player
+        </a>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3">
+                        <i class="bi bi-person-badge-fill text-primary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="card-title">Easy Registration</h5>
+                    <p class="card-text">Register in minutes and get your unique player number instantly</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3">
+                        <i class="bi bi-calendar-event-fill text-success" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="card-title">Join Tournaments</h5>
+                    <p class="card-text">Browse and register for upcoming netball tournaments</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3">
+                        <i class="bi bi-people-fill text-warning" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="card-title">Team Formation</h5>
+                    <p class="card-text">Get assigned to teams and compete with the best</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if tournaments %}
+    <div class="mt-5">
+        <h2 class="text-white mb-4 text-center">Active Tournaments</h2>
+        <div class="row g-4">
+            {% for tournament in tournaments %}
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-trophy text-warning"></i> {{ tournament.name }}</h5>
+                        <p class="card-text">{{ tournament.description }}</p>
+                        <p class="mb-2">
+                            <i class="bi bi-calendar-check"></i>
+                            <strong>Start:</strong> {{ tournament.start_date|date:"M d, Y" }} |
+                            <strong>End:</strong> {{ tournament.end_date|date:"M d, Y" }}
+                        </p>
+                        <a href="{% url 'register_player' %}" class="btn btn-sm btn-primary">
+                            Register for this Tournament
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
